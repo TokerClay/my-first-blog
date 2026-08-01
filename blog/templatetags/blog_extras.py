@@ -1,6 +1,8 @@
 import re
 
+import markdown as md
 from django import template
+from django.utils.safestring import mark_safe
 
 register = template.Library()
 
@@ -25,3 +27,18 @@ def first_paragraph(text):
         if line:
             return line
     return text
+
+
+@register.filter
+def markdown(text):
+    """把文章正文按 Markdown 渲染为 HTML（覆盖 Obsidian 常用语法）。
+
+    使用 extensions:
+      - extra: 标题/粗体/斜体/列表/引用/链接/图片/表格/围栏代码块/脚注
+      - toc:   支持 [TOC] 目录
+    输出用 mark_safe 标记为安全 HTML，供模板直接渲染。
+    """
+    if not text:
+        return ""
+    html = md.markdown(text, extensions=["extra", "toc"])
+    return mark_safe(html)

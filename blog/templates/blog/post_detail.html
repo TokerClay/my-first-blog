@@ -6,7 +6,7 @@
         <p class="date">
             作者：{{ post.author }}{% if post.published_date %} · 发布于：{{ post.published_date }}{% endif %}
         </p>
-        <p>{{ post.text|linebreaksbr }}</p>
+        {{ post.text|markdown }}
         <a class="btn btn-outline-secondary btn-sm" href="/">← 返回列表</a>
     </article>
 {% endblock %}

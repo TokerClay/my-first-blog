@@ -240,3 +240,33 @@ article img {
     font-size: 0.95rem;
   }
 }
+
+/* ==========================================================================
+   Markdown 渲染内容的基础排版
+   ========================================================================== */
+
+/* 表格：细线分割、表头浅底，贴合学术复古风 */
+.post table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.75rem 0;
+  font-size: 0.95rem;
+}
+
+.post th,
+.post td {
+  border: 1px solid var(--claude-border);
+  padding: 8px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.post th {
+  background-color: #F4F1EC;
+  font-weight: 600;
+}
+
+/* 行内代码与代码块在 Markdown 下已有基础样式，这里确保不溢出版心 */
+.post pre {
+  margin: 1.5rem 0;
+}
