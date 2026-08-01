@@ -2,19 +2,11 @@
 
 {% block content %}
     <article class="post">
-        {% if user.is_authenticated %}
-            <aside class="actions">
-                <a class="btn btn-secondary" href="{% url 'post_edit' pk=post.pk %}">
-                    {% include './icons/pencil-fill.svg' %}
-                </a>
-            </aside>
-        {% endif %}
-        {% if post.published_date %}
-            <time class="date">
-                published: {{ post.published_date }}
-            </time>
-        {% endif %}
         <h2>{{ post.title }}</h2>
+        <p class="date">
+            作者：{{ post.author }}{% if post.published_date %} · 发布于：{{ post.published_date }}{% endif %}
+        </p>
         <p>{{ post.text|linebreaksbr }}</p>
+        <a class="btn btn-outline-secondary btn-sm" href="/">← 返回列表</a>
     </article>
 {% endblock %}

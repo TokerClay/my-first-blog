@@ -1,67 +1,180 @@
-h1 a, h2 a {
-    color: #C25100;
-    font-family: 'Lobster';
+/* ==========================================================================
+   CLAUDE 风格官方博客 - 全局样式彻底覆盖模板 (2026 现代极简版)
+   字体由 base.html 通过 <link> 引入（Lora 衬线 + Inter 无衬线）
+   ========================================================================== */
+
+/* 核心设计系统变量 */
+:root {
+  --claude-bg: #FBF9F6;         /* 温暖的沙色/浅米色背景 */
+  --claude-text-main: #191919;   /* 极深的非纯黑文字（最核心的质感） */
+  --claude-text-muted: #666360;  /* 优雅的暗灰色（用于日期、次要说明） */
+  --claude-accent: #8C2E20;     /* 橡木红/泥土色（用于高亮、分类标签） */
+  --claude-border: #E5E2DD;     /* 高对比度的极细单色分割线 */
+
+  --font-serif: 'Lora', Georgia, Cambria, serif;
+  --font-sans: 'Inter', -apple-system, sans-serif;
 }
+
+/* 全局基础重置：清洗所有旧颜色和刺眼白底 */
+* {
+  box-sizing: border-box;
+}
+
 body {
-    padding-left: 15px;
+  background-color: var(--claude-bg) !important; /* 强制覆盖所有旧背景 */
+  color: var(--claude-text-main) !important;
+  font-family: var(--font-sans);
+  line-height: 1.75;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
 }
-.page-header {
-    background-color: #C25100;
-    margin-top: 0;
-    margin-bottom: 40px;
-    padding: 20px 20px 20px 40px;
+
+/* 网页超链接：抛弃传统的下划线，改用克制的强调色 */
+a {
+  color: var(--claude-text-main);
+  text-decoration: none;
+  border-bottom: 1px solid var(--claude-border);
+  transition: all 0.2s ease;
 }
-.page-header h1,
-.page-header h1 a,
-.page-header h1 a:visited,
-.page-header h1 a:active {
-    color: #ffffff;
-    font-size: 36pt;
-    text-decoration: none;
+
+a:hover {
+  color: var(--claude-accent);
+  border-bottom-color: var(--claude-accent);
 }
-h1,
-h2,
-h3,
-h4 {
-    font-family: 'Lobster', cursive;
+
+/* 标题层级覆盖：全部换上古典学术感衬线体 */
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  color: var(--claude-text-main);
+  line-height: 1.25;
+  margin-top: 1.5em;
+  margin-bottom: 0.6em;
 }
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 1.85rem; border-bottom: 1px solid var(--claude-border); padding-bottom: 0.3em; }
+h3 { font-size: 1.4rem; }
+
+/* 正文与段落：拉大呼吸感间距 */
+p {
+  font-size: 1.125rem; /* 字号略微放大以提升阅读舒适度 */
+  margin-top: 0;
+  margin-bottom: 1.75rem;
+}
+
+/* 列表样式微调 */
+ul, ol {
+  margin-bottom: 1.75rem;
+  padding-left: 1.5rem;
+}
+
+li {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+}
+
+/* 标志性的学术手稿引用块 */
+blockquote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.25rem;
+  border-left: 2px solid var(--claude-text-main) !important;
+  padding-left: 24px;
+  margin: 40px 0;
+  color: #4A4744;
+}
+
+/* 干净无阴影的代码块 */
+pre, code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+pre {
+  background-color: #F4F1EC !important; /* 比沙色稍深的无阴影卡片 */
+  border: 1px solid var(--claude-border);
+  padding: 20px;
+  overflow-x: auto;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  margin: 32px 0;
+}
+
+code {
+  background-color: #F4F1EC;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-size: 85%;
+}
+
+/* 极简的全局内容容器（直接套用在 base.html 的 content 槽位最外层） */
+.site-container {
+  max-width: 680px; /* 严格限制阅读黄金宽度 */
+  margin: 60px auto;
+  padding: 0 24px;
+}
+
+/* 极细线条分割的元数据区 */
+.meta-divider {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-top: 1px solid var(--claude-border);
+  border-bottom: 1px solid var(--claude-border);
+  color: var(--claude-text-muted);
+  font-size: 0.875rem;
+  margin-bottom: 40px;
+}
+
+/* ===== 以下为适配本博客模板的补充样式 ===== */
+
+/* 站点头部标题 */
+.site-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--claude-border);
+}
+.site-header h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+.site-header h1 a {
+  border-bottom: none;
+}
+
+/* 文章列表/详情里的元数据（作者 / 时间） */
 .date {
-    color: #828282;
+  color: var(--claude-text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
 }
-.save {
-    float: right;
-}
-.post-form textarea,
-.post-form input {
-    width: 100%;
-}
-.top-menu,
-.top-menu:hover,
-.top-menu:visited {
-    color: #ffffff;
-    float: right;
-    font-size: 26pt;
-    margin-right: 20px;
-}
+
+/* 文章卡片间距，配合单线分割形成学术列表感 */
 .post {
-    margin-bottom: 70px;
+  margin-bottom: 3rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--claude-border);
 }
-.post h2 a,
-.post h2 a:visited {
-    color: #000000;
+
+/* 阅读全文 / 返回列表 按钮（替代 Bootstrap 的 btn 观感，纯学术描边） */
+.btn {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--claude-text-main);
+  border: 1px solid var(--claude-border);
+  border-radius: 4px;
+  padding: 6px 14px;
+  margin-top: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
-.post > .date,
-.post > .actions {
-    float: right;
+.btn:hover {
+  color: var(--claude-accent);
+  border-color: var(--claude-accent);
 }
-.btn-secondary,
-.btn-secondary:visited {
-    color: #C25100;
-    background: none;
-    border-color: #C25100;
-    margin-left: 15px;
-}
-.btn-secondary:hover {
-    color: #FFFFFF;
-    background-color: #C25100;
+.btn-sm {
+  padding: 4px 10px;
+  font-size: 0.825rem;
 }
