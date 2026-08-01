@@ -63,6 +63,12 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            # 把自定义模板标签库注册为 builtin：
+            # 这样 |markdown、|first_paragraph 在【所有】模板里自动可用，
+            # 无需再写 {% load blog_extras %}，避免漏写导致 Invalid filter。
+            'builtins': [
+                'blog.templatetags.blog_extras',
+            ],
         },
     },
 ]
