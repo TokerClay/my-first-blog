@@ -178,3 +178,65 @@ code {
   padding: 4px 10px;
   font-size: 0.825rem;
 }
+
+/* ==========================================================================
+   移动端响应式适配
+   ========================================================================== */
+
+/* 文章内图片在窄屏自适应，避免横向溢出撑破布局 */
+.post img,
+article img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 长链接 / 长单词自动断行，防止撑破容器 */
+.post p,
+.post li {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+/* 窄屏（手机）下的阅读优化：缩小外边距、收紧字号、放大点击区域 */
+@media (max-width: 640px) {
+  .site-container {
+    margin: 28px auto;
+    padding: 0 18px;
+  }
+
+  h2 {
+    font-size: 1.45rem;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+  }
+
+  p,
+  li {
+    font-size: 1.0625rem; /* 约 17px，移动端更易读 */
+  }
+
+  .site-header {
+    margin-bottom: 1.75rem;
+    padding-bottom: 1rem;
+  }
+
+  .site-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .post {
+    margin-bottom: 2.25rem;
+  }
+
+  .date {
+    font-size: 0.825rem;
+  }
+
+  /* 移动端按钮稍微放大，方便手指点击 */
+  .btn {
+    padding: 8px 16px;
+    font-size: 0.95rem;
+  }
+}
