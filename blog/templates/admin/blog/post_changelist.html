@@ -1,0 +1,6 @@
+{% extends "admin/change_list.html" %}
+
+{% block object-tools-items %}
+  <a href="{% url 'import_md' %}" class="addlink" style="background:#8C2E20;">导入 Markdown 文件</a>
+  {{ block.super }}
+{% endblock %}

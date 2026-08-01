@@ -1,0 +1,60 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  <article class="post">
+    <h2>导入 Markdown 文件</h2>
+    <p class="date">把 Obsidian 导出的 .md 文件拖到这里，或点击选择文件，即可生成一篇博文。</p>
+
+    {% if messages %}
+      {% for message in messages %}
+        <p style="color:{% if message.tags == 'error' %}#8C2E20{% else %}#2E7D32{% endif %};">{{ message }}</p>
+      {% endfor %}
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" id="md-form">
+      {% csrf_token %}
+      <div id="dropzone" style="border:2px dashed var(--claude-border);border-radius:8px;padding:32px;text-align:center;color:var(--claude-text-muted);cursor:pointer;">
+        <p style="margin:0 0 8px;">把 .md 文件拖到此处</p>
+        <p style="font-size:0.9rem;margin:0 0 12px;">或</p>
+        <label class="btn" style="cursor:pointer;">
+          选择文件
+          <input type="file" name="md_file" id="md-input" accept=".md,.markdown,.txt" style="display:none;">
+        </label>
+        <p id="file-name" style="margin:12px 0 0;font-size:0.9rem;"></p>
+      </div>
+      <button type="submit" class="btn" style="margin-top:16px;">导入</button>
+    </form>
+  </article>
+
+  <script>
+    const dropzone = document.getElementById('dropzone');
+    const input = document.getElementById('md-input');
+    const nameEl = document.getElementById('file-name');
+    const form = document.getElementById('md-form');
+
+    dropzone.addEventListener('click', () => input.click());
+    input.addEventListener('change', () => {
+      if (input.files[0]) nameEl.textContent = '已选择：' + input.files[0].name;
+    });
+
+    ['dragenter', 'dragover'].forEach(e =>
+      dropzone.addEventListener(e, ev => {
+        ev.preventDefault();
+        dropzone.style.borderColor = 'var(--claude-accent)';
+      })
+    );
+    ['dragleave', 'drop'].forEach(e =>
+      dropzone.addEventListener(e, ev => {
+        ev.preventDefault();
+        dropzone.style.borderColor = 'var(--claude-border)';
+      })
+    );
+    dropzone.addEventListener('drop', ev => {
+      const files = ev.dataTransfer.files;
+      if (files[0]) {
+        input.files = files;
+        nameEl.textContent = '已选择：' + files[0].name;
+      }
+    });
+  </script>
+{% endblock %}
