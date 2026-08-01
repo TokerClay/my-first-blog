@@ -1,4 +1,5 @@
 {% extends 'blog/base.html' %}
+{% load blog_extras %}
 
 {% block content %}
     {% for post in posts %}
@@ -7,7 +8,7 @@
             <p class="date">
                 作者：{{ post.author }}{% if post.published_date %} · 发布于：{{ post.published_date }}{% endif %}
             </p>
-            <p>{{ post.text|truncatewords:50|linebreaksbr }}</p>
+            <p>{{ post.text|first_paragraph|linebreaks }}</p>
             <a class="btn btn-outline-secondary btn-sm" href="{% url 'post_detail' pk=post.pk %}">阅读全文 →</a>
         </article>
     {% endfor %}
