@@ -2,6 +2,7 @@ import os
 
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from .models import Post
@@ -9,11 +10,14 @@ from .models import Post
 # 首页列表
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+    paginator = Paginator(posts, 5)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
     return render(request, 'blog/post_list.html', {'posts': posts})
 
 # 文章详情
 def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+    post = get_object_or_404(Post, pk=pk, published_date__lte=timezone.now())
     return render(request, 'blog/post_detail.html', {'post': post})
 
 @staff_member_required

@@ -15,7 +15,7 @@
   --font-sans: 'Inter', -apple-system, sans-serif;
 }
 
-/* 全局基础重置：清洗所有旧颜色和刺眼白底 */
+/* 全局基础重置：清洗所有旧背景和刺眼白底 */
 * {
   box-sizing: border-box;
 }
@@ -272,4 +272,23 @@ article img {
 /* 行内代码与代码块在 Markdown 下已有基础样式，这里确保不溢出版心 */
 .post pre {
   margin: 1.5rem 0;
+}
+
+/* 分页导航 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin: 2rem 0;
+  font-size: 0.9rem;
+  color: var(--claude-text-muted);
+}
+.pagination a {
+  color: var(--claude-text-main);
+  border-bottom: 1px solid var(--claude-border);
+}
+.pagination a:hover {
+  color: var(--claude-accent);
+  border-bottom-color: var(--claude-accent);
 }

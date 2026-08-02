@@ -1,5 +1,4 @@
 {% extends 'blog/base.html' %}
-{% load blog_extras %}
 
 {% block content %}
     {% for post in posts %}
@@ -12,4 +11,16 @@
             <a class="btn btn-outline-secondary btn-sm" href="{% url 'post_detail' pk=post.pk %}">阅读全文 →</a>
         </article>
     {% endfor %}
+
+    {% if posts.has_other_pages %}
+    <nav class="pagination">
+        {% if posts.has_previous %}
+            <a href="?page={{ posts.previous_page_number }}">← 上一页</a>
+        {% endif %}
+        <span>第 {{ posts.number }} / {{ posts.paginator.num_pages }} 页</span>
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}">下一页 →</a>
+        {% endif %}
+    </nav>
+    {% endif %}
 {% endblock %}
